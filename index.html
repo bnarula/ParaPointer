@@ -1,0 +1,724 @@
+<html>
+
+<head>
+    <style>
+    </style>
+    <link href="index.css" rel="stylesheet" type="text/css" />
+</head>
+
+
+
+<body>
+    <div id="content">
+        <h1>The Second Edition of "Refactoring"</h1>
+
+        <div class="paperBody">
+            <div class="side-cover photo">
+                <p>
+                    <img src="/books/refact2.jpg">
+                </p>
+
+                <div class="author">
+                    <img alt="Photo of Martin Fowler" src="/mf.jpg" width="80">
+                    <p class="name">
+                        <a href="/" rel="author">Martin Fowler</a>
+                    </p>
+                </div>
+
+                <div class="clear"></div>
+            </div>
+
+            <p>For the past two years, I've been working on a second edition of my book "Refactoring". Here I have details about
+                the new edition and some memos describing my thoughts in the last months of this project.</p>
+
+            <p>The book is in production: we hope that it will be on the shelves early in the fall.</p>
+
+            <div class="details section">
+                <h2 class="expander-button">Details&nbsp;
+                    <span class="expander-indicator expanded" title="expand">▶</span>
+                </h2>
+
+                <div class="expander-body" style="display: block;">
+                    <p>I was lucky enough to work with Kent Beck on the
+                        <a href="/bliki/C3.html">C3 project</a> that birthed Extreme Programming. There was a great deal I learned (and am still learning)
+                        from Kent, but one thing that really stood out was they approach he took to continually reworking
+                        the code base to keep it healthy, an approach that went under the then-unknown name of "Refactoring".
+                        In my other consulting work I stressed how valuable a technique this is, but couldn't point people
+                        to a book to learn about it, so I ended up writing it myself. It was published just before the 20th
+                        Century ended.</p>
+
+                    <p>That's nearly twenty years ago, and the technique is now more widely known, although often not executed
+                        as well as it should be. The book has also held up pretty well, and I think you can take this old
+                        book and still learn how to refactor pretty much as well as you could all those years ago. But the
+                        book shows its age, with wrinkles like the use of
+                        <code>java.util.Vector</code>.</p>
+
+                    <p>So over the years I've been thinking about revising it, but I have also been reluctant. After all it
+                        still teaches the technique perfectly well, and second editions have a horrible habit of not improving
+                        on the original. But a further force has been tugging at me. At the time I wrote it, it was becoming
+                        mainstream to consider classes as the dominant structuring the mechanism for code. These days, however,
+                        we see other structures playing a greater role. Classes still are valuable, in my view, but our refactoring
+                        needs to be less centered around them, realizing that they can come and go as code is trained into
+                        new shapes.</p>
+
+                    <p>During 2015 and early 2016 I wrote a series of essays exploring various circumstances for refactoring,
+                        this helped me get a feel for if I should tackle a rewrite, and if so, how. By mid 2016 I was ready
+                        to commence the work in anger. If you've been wondering why I haven't been writing as much for martinfowler.com
+                        as I used to, it was because my writing energy has been focused on the book since then.</p>
+
+                    <div id="ChangesInTheSecondEdition">
+                        <h4>Changes in the Second Edition</h4>
+
+                        <p>The changes are both very minor and all-encompassing. They are minor because the basic structure
+                            of the book hasn't changed. I begin with an opening example, a chapter of principles, a survey
+                            of "code smells", and an introduction to testing. The bulk of the book is a catalog of refactorings
+                            and of those 68 refactorings, all but 10 are still present, and I've added 17 new ones.</p>
+
+                        <p>Despite this lack of change in the overall book structure, the changes to the words on pages is huge.
+                            Every chapter and refactoring has been rewritten, mostly from near scratch. I rarely had decent
+                            opportunities to cut and paste text from the old edition.</p>
+
+                        <p>The reorientation towards a less class-centered view is a large part of this. Although that may sound
+                            as simple as changing the name of "Extract Method" to "Extract Function", it did entail rethinking
+                            all aspects of every refactoring. I needed to reconsider the motivation, often feeling that it
+                            needed to be reframed. The mechanics needed at least a detailed review, often a complete rewrite.
+                            I wasn't keeping detailed notes on this, but my feel is that for every relatively simple import
+                            of an old refactoring, there were two that required a complete rethink.</p>
+
+                        <p>However there is another change, which in a way isn't that important, but is bound to get a lot of
+                            attention. The examples are no longer in Java.</p>
+
+                        <p>When I choose a language for examples in my writing, I think primarily of the reader. I ask "what
+                            language will help the most readers understand the concepts in the book?"
+                            <i>Refactoring</i> isn't a language specific book, its advice may have been explained with the help
+                            of examples in Java, but the refactorings apply to most languages. I picked Java because I felt
+                            the most people would be able to understand the code examples if they were written in Java. That
+                            was the case in 1997, but how about in 2017?</p>
+
+                        <p>I considered using multiple languages, which would emphasize the language-neutral intent of the book.
+                            But I felt that would be more confusing for the reader, better to use a single language so they
+                            can get used to a consistent form of expression. So which one would be the most approachable
+                            to readers? Such a language needed to be widely popular, among the top half a dozen in language
+                            popularity surveys. It really helps to have a C-based syntax, since most programmers would recognize
+                            the basic code structure. Given that, two stood out. One was Java, still widely used and easy
+                            to understand. But I went for the alternative: JavaScript.</p>
+
+                        <p>Choosing JavaScript was deeply ironic for me, as many readers may know, I'm not a fan of it. It has
+                            too many awkward edge cases and clunky idioms. ECMAScript 2015 (ES6) introduced a rather good
+                            class model, which makes many object-oriented refactorings much easier to express, but still
+                            has annoying holes that are built into the fabric of the language from its earliest days. But
+                            the compelling reason for choosing it over Java is that isn't wholly centered on classes. There
+                            are top-level functions, and use of first-class functions is common. This makes it much easier
+                            to show refactoring out of the context of classes.
+                        </p>
+                    </div>
+
+                    <div id="AWeb-firstBook">
+                        <h4>A Web-First Book</h4>
+
+                        <p>The world-wide web has made an enourmous impact on our society, particularly affecting how we gather
+                            information. When I wrote the first edition, most of the knowledge about software development
+                            was transferred through print. Now I gather most of my information online. This has presented
+                            a challenge for authors like myself, is there still a role for books, and what should they look
+                            like?
+                        </p>
+
+                        <p>I believe there still is role for books like this, but they need to change. The value of a book is
+                            a large body of knowledge, put together in a cohesive fashion. In writing this book I need to
+                            gather together lots of refactorings, and organize them in a consistent and integrated manner.
+                        </p>
+
+                        <p>But that integrated whole is an abstract literary work that, while traditionally represented by a
+                            paper book, need not be in the future. Most of the book industry still sees the paper book as
+                            the primary representation, and while we've enthusiastically adopted ebooks, these are just electronic
+                            representations of an original work based on the notion of a paper book.</p>
+
+                        <p>With this book, I'm exploring a different approach. I think of the canonical form of this book as
+                            the web site. The paper book is a selection of material from the web site, arranged in a manner
+                            that makes sense for print. It doesn't attempt to include all the refactorings in the canonical
+                            book, particularly since I may well add more refactorings to the canonical web book in the future.</p>
+
+                        <p>Our intention is that when you buy a copy of Refactoring, 2nd Ed, you might buy it at a bookstore
+                            in its physical form, or online in any form. The most essential thing you get for your money
+                            is the access code that gives you permanent access to the web site. You can read the physical
+                            book, and access the web site whenever you need.</p>
+
+                        <p>This raises a question of what role ebooks (such as epubs and kindle books) should play. There is
+                            a strong argument that they should contain all the information on the web site, after all physical
+                            size isn't a factor, and ebooks can be updated easily if I add new material. However the book
+                            industry doesn't think that way, they expect ebooks to have the same content as the physical
+                            books, so the ebook versions of refactoring will follow that principle, at least for now.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section earlier">
+                <h2 class="expander-button">Earlier Memos&nbsp;
+                    <span class="expander-indicator" title="expand">▶</span>
+                </h2>
+
+                <div class="expander-body">
+                    <div class="section" id="scope">
+                        <h3 class="expander-button">Keeping the scope the same (28 March 2018)&nbsp;
+                            <span class="expander-indicator" title="expand">▶</span>
+                        </h3>
+
+                        <div class="expander-body">
+                            <p>One of the things I want to stress about this edition, is that
+                                <strong>it doesn’t cover more scope than the existing book</strong>. There is somewhat of a shift
+                                away from a purely class-based structure but my aim has been not to change the scope of the
+                                book too much. While there’s a lot of appealing territory I could explore, I have a limited
+                                amount of time and energy. So I followed a rule of not letting the second edition venture
+                                into new topic areas. Even with just trying to do no more than replicate what’s in the first
+                                edition, it’s still two years of solid work. I didn’t want to increase the amount of time
+                                I’m spending on this, after all the first edition is very successful, so my aim is to maintain
+                                its usefulness, not to try and create something new.</p>
+
+                            <p>My general plan was take each refactoring in the first edition, and ask what needs to be done
+                                to it for it to be relevant in this slightly altered context. In a few (happy) cases I could
+                                take the refactoring pretty much as it was, do a simple rewrite of the example into JavaScript,
+                                and be done with it. Usually however it required a significant rethink of the mechanics and
+                                the example. Sometimes it meant the original refactoring was replaced by something similar.</p>
+
+                            <p>There’s a good chance that in the future, I will explore some new topics, and add to the corpus
+                                of refactorings on the web site. Of course, I thought that before with the first edition,
+                                but mostly didn’t, so take that thought with an appropriate amount of salt. But I did explore
+                                some essays on using refactoring to help explore various architectural problems in 2015 and
+                                early 2016. I enjoyed writing them, and they indicated a vehicle I could easily use more
+                                in the future.</p>
+                            <p>
+                                <a href="#scope" title="permalink">#</a>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="section" id="working-through-review-comments">
+                        <h3 class="expander-button">Working through review comments (03 April 2018)&nbsp;
+                            <span class="expander-indicator" title="expand">▶</span>
+                        </h3>
+
+                        <div class="expander-body">
+                            <p>I’ve spent the last few days (yes, including the weekend) working through review comments on
+                                the book. Early in February my editor at Pearson sent out the current state of the book to
+                                various people for a technical review. This is a vital part of the process for writing a
+                                book, any author will make mistakes, and I make plenty. Reviewers help catch those, and also
+                                highlight things that are not clearly explained.</p>
+
+                            <p>This isn’t the first review for this book material. When I started the book I gathered together
+                                a panel of people to do on-going review. Every time I finished a chapter, or a couple of
+                                refactorings, I’d send it to them for comments. Their feedback has helped enormously. But
+                                at some point I need someone to step back and take a fresh look at the whole book, which
+                                is where these recent reviewers have come in. Currently I’m going through comments from four
+                                such reviewers: William Chargin, Michael Hunger, Bob Martin, and Bill Wake (who was also
+                                part of my on-going review group).</p>
+
+                            <p>I like to do this on a chapter by chapter basis, take the first chapter, look at everyone’s comments,
+                                and process them all on the chapter. “Processing” means reading each comment, and deciding
+                                what to do about it. Each comment is a perspective from the reviewer, some might indicate
+                                a suggested change, perhaps an expression that something isn’t clear, perhaps an error in
+                                the code. Often I don’t do anything in reaction to the comment, I might disagree with someone’s
+                                suggestion, perhaps because I feel it’s out of scope for the book. Michael (who has reviewed
+                                previous books for me) feeds me lots of good suggestions for additional material that would
+                                take years to follow up on, so I have to let most of those go by. But I don’t mind because
+                                sometimes those suggestions are things that really need to be there, and I’m glad I had someone
+                                prod me to include them.</p>
+
+                            <p>Errors are the obvious things to fix, and I’m regularly astonished when reviewers find subtle
+                                code errors. I avoid many of those by my automated code import system, but there are holes
+                                in the auto-import, and they’ve already saved me some embarrassing mistakes. Michael is particularly
+                                good at this, he must have installed several compilers into his wetware, which is one reason
+                                why I find him such a good reviewer. William Chargin is challenging him however, so I feel
+                                doubly blessed.</p>
+
+                            <p>Clarifications are often the hardest to figure out. Sometimes a reviewer just says “I don’t understand
+                                this”, sometimes it’s more indirect - they suggest something that implies they didn’t understand
+                                what I was saying. Dealing with these is hard because I then have to judge whether it’s just
+                                a one-off thing, or something deeper. People will always have difficulties with bits of a
+                                book, trying to fix every individual difficulty would be cure worse than the disease - the
+                                book would have to be much bigger, and the prose would get so stilted that it would be tedious
+                                to read. It helps when more than one reviewer has the same difficulty, then I can be confident
+                                it’s something I need to fix. An example of this was the way I laid out nested functions
+                                in the opening example confused three of the panel, so I knew I had to try a different approach.</p>
+
+                            <p>I always rather enjoy working through review comments. It’s good to get some feedback on whether
+                                what I’m doing is making sense. This stage is particularly good as it forces me to step back
+                                too. For nearly two years I’ve been down in the details, cranking chapter by chapter. Now
+                                I can look at the material as a whole, yet still dive down to sort out important details.</p>
+                            <p>
+                                <a href="#working-through-review-comments" title="permalink">#</a>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="section" id="refactoring-takes-the-red-and-black">
+                        <h3 class="expander-button">Refactoring takes the Red and Black (05 April 2018)&nbsp;
+                            <span class="expander-indicator" title="expand">▶</span>
+                        </h3>
+
+                        <div class="expander-body">
+                            <p>When I wrote the first edition of Refactoring, it went into the Object Technology Series at Addison
+                                Wesley. I never took book series very seriously, so I just followed my editor’s suggestion.
+                                Since then I’ve formed my own series (the “signature series”), and put a fair amount of effort
+                                into curating it so it only contains books I can firmly recommend. So it’s natural for the
+                                book to move into my own series.</p>
+
+                            <p>It isn’t, however, an inevitable decision. The series isn’t a catch all, it’s about books that
+                                I consider to be foundation books on the technical side of programming. I submitted my most
+                                recent book, NoSQL Distilled, for the series, but I rejected it - because I didn’t think
+                                it fit in with the flavor of the series. That sounds rather convoluted, but there is a process
+                                here. Every candidate book submitted to the series is sent to all the authors in the series,
+                                and I ask for their opinion. In that case, they helped me decide to reject myself. This time
+                                they felt it was an easy inclusion, which reinforced my feeling that it was a good fit.</p>
+                            <p>
+                                <a href="#refactoring-takes-the-red-and-black" title="permalink">#</a>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="section" id="pause-in-review-updates">
+                        <h3 class="expander-button">Pause in Review Updates (06 April 2018)&nbsp;
+                            <span class="expander-indicator" title="expand">▶</span>
+                        </h3>
+
+                        <div class="expander-body">
+                            <p>As I said in an earlier memo, I’m enjoying going through review comments. However I’m about to
+                                put this work on a long pause. I have travel commitments coming up that means that today
+                                is the last day I’ll get at my desk for five weeks. While I can technically do some writing
+                                work while I’m on the road, I’ll mostly be too busy with other things to put any serious
+                                energy into it. (And there is some vacation in there, which I hope will help rejuvenate me
+                                a bit.) It’s a frustrating break, since I’d really like to get the text of the book settled
+                                so to better concentrate on other things. I’d hoped to have all the review comments processed
+                                and dealt with by now, but plans in writing are little better than plans in software development
+                                (for much the same reasons).</p>
+
+                            <p>
+                                <a href="#pause-in-review-updates" title="permalink">#</a>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="section" id="back-at-my-desk">
+                        <h3 class="expander-button">Back at my desk (18 May 2018)&nbsp;
+                            <span class="expander-indicator" title="expand">▶</span>
+                        </h3>
+
+                        <div class="expander-body">
+                            <p>This week was the week I finally got back to my desk in New England after five weeks on the road.
+                                It was a long time away, but I can’t complain too much since the last couple of weeks were
+                                an excellent vacation in Croatia. Highlights were Split, Dubrovnik, the
+                                <a href="https://en.wikipedia.org/wiki/Paklenica">Paklenica national park
+                                </a>, and especially the
+                                <a href="https://en.wikipedia.org/wiki/Plitvice_Lakes_National_Park">Plitvice Lakes
+                                </a>.</p>
+
+                            <p>I had hoped to have finished the text before I went away, but there were still some review comments
+                                that needed work. I also got a final batch of comments just before I left. So this week I
+                                made my first pass through that final batch and now just have the outstanding todos from
+                                the reviews. The bad news is that all these todos take a bit of effort to fix, since they
+                                became todos since I couldn’t quickly fix them while going through the comments. The good
+                                news is that I only have fourteen of them. I will hopefully get through them over the next
+                                two weeks before I have to hit the road again.</p>
+
+                            <p>Another topic on the book this week was starting to think about the cover. The core cover design
+                                is already settled, as it will be part of my signature series, but it does mean I have to
+                                pick a photo of a bridge. We’re in the middle of sorting that out now, hopefully I’ll be
+                                able to share that next week.</p>
+
+                            <p>
+                                <a href="#back-at-my-desk" title="permalink">#</a>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="section" id="reworking-examples">
+                        <h3 class="expander-button">Reworking examples (25 May 2018)&nbsp;
+                            <span class="expander-indicator" title="expand">▶</span>
+                        </h3>
+
+                        <div class="expander-body">
+                            <p>As with last week, this week has seen me working on review comments so I can finalize the technical
+                                content of the book before starting the production process. I went through all the comments
+                                last week, doing all the easy ones that I could deal with in less than an hour or so. That
+                                left the complicated ones, which are pretty stressful to be working on at this late stage
+                                in the game, with a (admittedly, somewhat self-imposed) deadline staring at me.</p>
+
+                            <p>At the heart of my work this week is reworking two examples. Both were ones where a couple of
+                                reviewers found difficult to follow, so I needed to figure out something that I think will
+                                be easier. This isn’t just about changing the prose text, it’s also about reworking the code.
+                                I find code examples to be one of the most difficult aspects of my writing. I try to create
+                                examples that are just complicated enough to show the main point, but no more complicated
+                                that that. They are still artificially simplistic - any realistic example is just too much
+                                for most readers to get their head around - but I want them to resonate with readers’ day-to-day
+                                experience. Today I spent most of the day coming up with an example that’s about fifty lines
+                                of code. I think it captures what I’m trying to say, but I’ll learn more as I carry out the
+                                refactoring I’m illustrating on this code and see how my prose works with it. I’m optimistic
+                                that it will work, but there’s still a fair bit of uncertainty.</p>
+
+                            <p>The earlier example was particularly tricky as it was a section of a larger refactoring example,
+                                the future opening example of the book. This example divides into three phases, and reviewers
+                                indicated problems with the middle phase. I reworked the sequence of the refactorings, and
+                                hopefully things are much clearer now. Interestingly this refactoring centers around a refactoring
+                                (Split Phase) that I hadn’t written up before my first draft of the opening example. The
+                                essence of the change was to follow the now-written mechanics of this new refactoring, and
+                                I was happy to see that following these mechanics seemed to make it a good bit easier to
+                                do and understand. The mechanics sections in my book aren’t the only mechanics for a refactoring,
+                                and they can’t be the best for all contexts. My aim is that they should work pretty well,
+                                most of the time. So I was pleased that following them helped me through this example.</p>
+
+                            <p>Reworking refactoring examples like this make me very familiar with git. I like to keep all my
+                                code examples “live”, so that I can change the code, run tests to ensure it still works,
+                                and mark sections of it to automatically flow into the book text. I’ve done this for many
+                                years with code examples, and it’s made life much easier. But doing this is tricky with refactoring,
+                                since I have a sequence of changes to the code. To cope with this I store the refactoring
+                                sequence in a git repository (necessarily a separate repo to the one that stores the book’s
+                                text) and capture the refactoring as a sequence of commits. I then import the code into the
+                                book text with tags that indicate the ref of the commit, and the name of the code fragment.
+                                When reworking a sequence of refactorings like this, I do a lot of cherry picking, where
+                                I make a change to commit master~7, then cherry pick all the refactoring changes I did since
+                                onto the changed commit. It’s awesome when it works well, and even when it doesn’t it’s far
+                                better than what I had to do with the first edition of the book.</p>
+
+                            <p>I have one more week at my desk before I’d like to declare “done”. The target still seems plausible,
+                                although much will depend on how the fifty lines I wrote today works as I write about the
+                                refactoring steps that go with it.</p>
+                            <p>
+                                <a href="#reworking-examples" title="permalink">#</a>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="section" id="released-to-production">
+                        <h3 class="expander-button">Released to Production (01 June 2018)&nbsp;
+                            <span class="expander-indicator" title="expand">▶</span>
+                        </h3>
+
+                        <div class="expander-body">
+                            <p>As May ended, I hit an important milestone, referred to by my publisher as “release to production”.
+                                In the days of traditional publishing, this means that the author hands her manuscript over
+                                to the production team. At this point we expect no significant changes to the core material
+                                of the book. There will be changes: as the book goes into copy-edit, as well as things like
+                                indexing - but they won’t be material changes to the essence of the book.</p>
+
+                            <p>In my early books, I’d send electronic files over to Pearson, and at some later point I’d get
+                                a big print out of changes marked up by the copy-editor. Other than going through these changes,
+                                checking to see if I agreed with them or not, I’d have little more to do with the book before
+                                it appeared on the shelves. These days, the process is rather more interactive, the copy-editor
+                                and I will share a git repository and I’ll be looking at diffs to see his suggested changes.
+                                But the sense of crossing an important bridge is still there. I won’t be reworking any more
+                                examples, or adding any significant material. At some level, the book is done. (Although,
+                                since this is a web-first book, I intend to continue to evolve its web representation).</p>
+
+                            <p>I have a sense of relief, although there is still much to be done with the book, this is still
+                                a big milestone, a sign that my focus on the book will begin to wane. I don’t have too much
+                                relief, because I have to go to Madrid next week for a couple of talks, and speaking trips
+                                are less appealing to me than a trip to the dentist. But it is some weight taken from my
+                                mind.
+                            </p>
+                            <p>
+                                <a href="#released-to-production" title="permalink">#</a>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="section" id="new-cover">
+                        <h3 class="expander-button">The new cover (13 June 2018)&nbsp;
+                            <span class="expander-indicator" title="expand">▶</span>
+                        </h3>
+
+                        <div class="expander-body">
+                            <p>When we started doing the signature series, the cover designer laid out the basic design which
+                                included space for a different photograph with each book. I decided that these photographs
+                                should follow a theme for all the books in the series. At that time my wife, a structural
+                                engineer, was designing bridges; she has since moved from horizontals (bridges and tunnels)
+                                to verticals (buildings). Her involvement in bridges inspired me to use them as a common
+                                theme for the book. So whenever an author writes a book in my signature series, I ask them
+                                to choose a bridge to adorn the cover. Ideally the bridge should have some personal connection
+                                for them.</p>
+
+                            <p>For my first book in the series (
+                                <a href="https://martinfowler.com/books/eaa.html">Patterns of Enterprise Application Architecture
+                                </a>), I picked the Zakim bridge in Boston. The link was pretty clear - they built the bridge
+                                just down the road, during the same years that I wrote the book. For my second series book
+                                (
+                                <a href="https://martinfowler.com/books/dsl.html">Domain-Specific Languages</a>), I picked the
+                                <a href="https://en.wikipedia.org/wiki/The_Iron_Bridge">Iron Bridge
+                                </a> - this was a connection to the Black Country where I grew up, as well as a historically
+                                important bridge.</p>
+
+                            <p>So what to choose for the Refactoring book? One thought that occurred to me was if I could draw
+                                some kind of analogy between refactoring and bridge engineering - but discussion with the
+                                bridge engineers I know made it clear that there’s nothing in bridge engineering that is
+                                comparable to refactoring. So instead my mind turned to a non-professional association. In
+                                this case I started thinking about one of my favorite places that I’d visited many times
+                                in the two-plus decades I’ve lived in New England -
+                                <a href="https://en.wikipedia.org/wiki/Acadia_National_Park">Acadia National Park</a>. This immediately suggested picking one of the many attractive bridges
+                                that are on the carriage roads.</p>
+
+                            <p>But I also thought of another Acadia-tinged possibility. On the road to Acadia we cross the Penobscot
+                                River. At the time that I wrote the first refactoring book, the road crossed the Penobscot
+                                using
+                                <a href="https://en.wikipedia.org/wiki/Waldo–Hancock_Bridge">Waldo-Hancock Bridge</a>, a suspension bridge designed by the notable bridge engineer David
+                                Steinman. In the first years of the new century, however, they found that the 70 year-old
+                                bridge needed to be replaced, and by 2007 the road went over the new
+                                <a href="https://en.wikipedia.org/wiki/Penobscot_Narrows_Bridge_and_Observatory">Penobscot Narrows Bridge</a>.</p>
+
+                            <p>On one of our trips up to Acadia, we stopped so I could take some photos of the two bridges.
+                                I’m glad we finally did do that, because a year later the Waldo-Hancock was demolished. (It’s
+                                a shame that I took my photos on such an overcast day.)</p>
+
+                            <p>
+                                <img src="refactoring-2nd-ed/bridges.jpg" alt="photo used for cover">
+                            </p>
+
+                            <p>Although there aren’t any analogies I can draw between bridge engineering and refactoring, I
+                                can push myself to summon up creative analogies between the two editions of the refactoring
+                                book and these two bridges.</p>
+
+                            <p>Although various twitterers have commented that the second edition of the refactoring book “refactors”
+                                the first edition, that isn’t true. (Indeed, as with bridge engineering, I don’t think there
+                                is any analogy from refactoring to book writing.) This second edition is a replacement to
+                                the old one, in the same way that the Penobscot Narrows bridge replaces the Waldo-Hancock.
+                                The Waldo-Hancock demonstrated innovative techniques that reduced the cost of bridge building,
+                                in the same way that the refactoring book described a new technique that reduces the cost
+                                of building software systems. The first edition of the book is replaced by a new edition
+                                within my signature series, and the new Penobscot Narrows bridge is a similar design to the
+                                Zakim bridge that was the cover bridge for the first book in that signature series.</p>
+
+                            <p>
+                                <a href="#new-cover" title="permalink">#</a>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="section" id="two-kinds-of-readers">
+                        <h3 class="expander-button">Two Kinds of Readers (27 June 2018)&nbsp;
+                            <span class="expander-indicator" title="expand">▶</span>
+                        </h3>
+
+                        <div class="expander-body">
+                            <p>When building software, its important to think about the software from your user’s perspective.
+                                So we have the notion of creating personas and use these personas to help guide the features
+                                and user-experience of the software systems. Similarly with books, it’s important for me
+                                to think of my readers and have some notion of the personas that should guide my writing.</p>
+
+                            <p>The most obvious persona for a piece of writing is the student reader - he has little or no knowledge
+                                of the topic in the book, and is reading the book to learn the material. This is my primary
+                                persona, and I try my best to understand what is in this reader’s mind and how best to convey
+                                information to him.</p>
+
+                            <p>But there is a second persona that’s also important - the teacher. This persona already knows
+                                most, if not all the material in the book. She uses the book to help guide more junior developers.
+                                Essentially the book is tool for her to help her task of improving her team’s skills.</p>
+
+                            <p>Sometimes she may use the book directly, saying to a junior that he needs to change a particular
+                                class to a value object and thus use the
+                                <a href="https://refactoring.com/catalog/changeReferenceToValue.html">Change Reference to Value</a> refactoring. At a higher level she might focus on a smell.
+                                One technique I’ve heard is of a team lead to designate a “smell of the week” and get the
+                                team to identify and fix examples of that smell. This both improves the code and teaches
+                                the developers how to spot and fix similar problems in the future.</p>
+
+                            <p>Even if the book isn’t used directly, I hope it is still handy in an indirect form. A senior
+                                developer may have the knowledge of refactoring, but that doesn’t mean that she knows how
+                                to teach it. Teaching a topic is a skill in its own right, somewhat independent from knowledge
+                                of a topic or skill in carrying out a task. I’ve often come across gifted practitioners who
+                                were not very good at teaching others what they do. A good book can be helpful in showing
+                                such leaders how to explain a topic. The mechanics section for Change Reference to Value
+                                isn’t the only way to carry out the refactoring, but following those steps can make it easier
+                                for a skillful colleague to show someone new how to do it.</p>
+
+                            <p>An interesting consequence of the second edition like this is that most of the people who are
+                                excited about the book are teacher-readers not student-readers. Teachers might well have
+                                been student-readers with the first edition many years ago. If you’re such a reader, remember
+                                this book won’t teach you anything new about refactoring. If it teaches you anything, it
+                                is how to teach it to those you are leading. When you evaluate if this book is useful to
+                                you, it’s not for what you can learn from it, but how it can help you accelerate the learning
+                                of those around you.</p>
+
+                            <p>
+                                <a href="#two-kinds-of-readers" title="permalink">#</a>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="section" id="some-hidden-heroes">
+                        <h3 class="expander-button">Some hidden heroes (10 July 2018)&nbsp;
+                            <span class="expander-indicator" title="expand">▶</span>
+                        </h3>
+
+                        <div class="expander-body">
+                            <p>All the technical book authors I know mention the big debt they have to technical reviewers.
+                                We’ve all written works with big flaws that were caught by our peers acting as reviewers.
+                                I don’t do a lot of technical review work, partly because I don’t think I’m very good at
+                                it, and thus have a lot of admiration for those who take it on. There’s not even a pittance
+                                to be made by reviewing someone else’s book, so doing it as a great act of generosity.</p>
+
+                            <p>When I started serious work on the book, I formed a mailing list of advisors to give me feedback.
+                                As I made progress, I sent drafts of new material to this group and asked them for their
+                                feedback. I want to thank the following for posting such feedback on the mailing list:
+                                <strong>Arlo Belshee, Avdi Grimm, Beth Anders-Beck, Bill Wake, Brian Guthrie, Brian Marick, Chad
+                                    Wathington, Dave Farley, David Rice, Don Roberts, Fred George, Giles Alexander, Greg
+                                    Doench, Hugo Corbucci, Ivan Moore, James Shore, Jay Fields, Jessica Kerr, Joshua Kerievsky,
+                                    Kevlin Henney, Luciano Ramalho, Marcos Brizeno, Michael Feathers, Patrick Kua, Pete Hodgson,
+                                    Rebecca Parsons,</strong> and
+                                <strong>Trisha Gee.</strong>
+                            </p>
+
+                            <p>Of this group, I’d particularly like to highlight the special help I got on JavaScript from
+                                <strong>Beth Anders-Beck, James Shore</strong>, and
+                                <strong>Pete Hodgson</strong>.</p>
+
+                            <p>Once I had a pretty complete first draft, I sent it out for further review, because I wanted
+                                to have some fresh eyes look at the draft as a whole.
+                                <strong>William Chargin
+                                </strong> and
+                                <strong>Michael Hunger</strong> both delivered incredibly detailed review comments. I also got many
+                                useful comments from
+                                <strong>Bob Martin</strong> and
+                                <strong>Scott Davis</strong>.
+                                <strong>Bill Wake</strong> added to his contributions on the mailing list by doing a full review
+                                of the first draft.
+                            </p>
+
+                            <p>I found the combination of incremental review by the mailing list and final full review to work
+                                really well. Leaving all the review to the end (as was the case with my earlier books, including
+                                the first edition) results in me getting useful comments too late. I was able to take early
+                                comments on board and react to them as I continued with the book. The final review was still
+                                helpful because it’s easy for incremental reviewers to lose the overall context of the book
+                                - indeed it’s easy for me to lose that context when in the depths of working on it. Having
+                                fresh eyes look at the whole can make a big difference.</p>
+
+                            <p>
+                                <a href="#some-hidden-heroes" title="permalink">#</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h2>Latest Memo: Completed Copyedit</h2>
+
+            <p class="memo-date">25 July 2018</p>
+            <p>I’ve just finished reviewing the copyedits for Refactoring. This is the stage where my flawless prose is sent
+                to someone who checks to see if it’s as wonderful as I imagine, and sends back a list of corrections. In
+                my case a rather large list.</p>
+
+            <p>Authors react in a wide range of ways to the copyedit process. Some authors go into a rage if a single character
+                of their immaculate text is changed. Other authors are so sick of the manuscript that they wave all the changes
+                through. I tend to the latter, but still review every change - mostly to ensure the copyeditor hasn’t inadvertently
+                changed the meaning of the text, a real danger with such a technical book.</p>
+
+            <p>I find this review both interesting and frustrating. It’s frustrating because by this point I’m really done with
+                the text and don’t want to read it again. Many of the copyedits seem rather arbitrary to me - changing some
+                punctuation or wording in ways that don’t seem to make a significant difference to me. For example, I never
+                really saw the point of semicolons, so hardly ever use them. But copyedit changes like this are for the reader,
+                not for me.
+                <a href="http://kirsanov.com/">Dmitry Kirsanov
+                </a>, my current copyeditor, says: “copyediting (when it’s not simply fixing bad grammar) is a matter of
+                <em>intonation</em>. Authors don’t always hear their own intonation, much like we don’t properly hear our own
+                voice and are often surprised (usually unpleasantly) to hear it in a recording.”</p>
+
+            <p>Authors vary with their reaction to copyeditors, but different copyeditors do varied jobs too. I appreciated
+                the first decent copyeditor I worked with because she believed that it was crucial that she should preserve
+                the author’s voice as much as possible. My main memory from her work was adding lots of commas - unsurprisingly
+                I don’t tend to put them in unless I feel I really need to. Sadly I couldn’t use her for my books because
+                she’s British, and American publishers didn’t think a Brit could possibly copyedit to American standards.
+                Dmitry has been my copyeditor for my last two books and I enjoy his work too. Although many of his changes
+                make me shrug, many of them are distinct improvements to my wording (including one in this sentence). And
+                sometimes he pops in a change that sounds more like me than I do, which is creepy and wonderful at the same
+                time.
+            </p>
+
+            <p>Some copyeditors I’ve run into make a point about how they are changing the text to make it
+                <em>correct</em>, an attitude that does make my eyes roll. After all many of the rules of “correct English” were
+                19th century conventions invented to distinguish well-educated upper-class people from plebs like me. (The
+                split-infinitive rule only exists to ape latin, for example.)</p>
+
+            <p>In a couple of cases I’ve seen a copyeditor copyedit text that’s already been copyedited by a different copyeditor,
+                and ends up making as many changes as they did with uncopyedited text. (me feel smug.)</p>
+
+            <p>This site isn’t copyedited - you get my raw text. I haven’t seen many complaints about it, so I’ve been happy
+                to get away with the convenience of skipping a copyedit stage.</p>
+
+            <p>
+                <a href="#completed-copyedit" title="permalink">#</a>
+            </p>
+            <hr class="bodySep">
+
+            <div class="end-box">
+                <div class="shares">
+                    <div class="icons">
+                        <span class="label">Share:</span>
+                        <a href="https://twitter.com/intent/tweet?url=https://martinfowler.com/articles/refactoring-2nd-ed.html&amp;text=The Second Edition of &quot;Refactoring&quot; ➙ "
+                            title="Share on Twitter">
+                            <img src="/t_mini-a.png">
+                        </a>
+                        <a href="https://facebook.com/sharer.php?u=https://martinfowler.com/articles/refactoring-2nd-ed.html" title="Share on Facebook">
+                            <img src="/fb-icon-20.png">
+                        </a>
+                        <a href="https://plus.google.com/share?url=https://martinfowler.com/articles/refactoring-2nd-ed.html" title="Share on Google Plus">
+                            <img src="/gplus-16.png">
+                        </a>
+                    </div>
+
+                    <div class="comment">if you found this article useful, please share it. I appreciate the feedback and encouragement</div>
+                </div>
+
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+</body>
+<style>
+    .mark {
+        border: 1px solid blue;
+    }
+</style>
+<script>
+    (function (mouseStopDelay) {
+        var timeout;
+        document.addEventListener('mousemove', function (e) {
+            console.log('custom mousemove called');
+            clearTimeout(timeout);
+            timeout = setTimeout(function () {
+                var event = new CustomEvent("mousestop", {
+                    detail: {
+                        clientX: e.clientX,
+                        clientY: e.clientY
+                    },
+                    bubbles: true,
+                    cancelable: true
+                });
+                e.target.dispatchEvent(event);
+            }, mouseStopDelay);
+        });
+    }(1000));
+
+    document.body.style.position = 'relative';
+    var lastSrcElement = null;
+    window.document.body.addEventListener("mousemove", function (evt) {
+        if (lastSrcElement) {
+            lastSrcElement.classList.remove('mark');
+        }
+        var thisSrcElement = evt.srcElement;
+        if (thisSrcElement.tagName === 'P') {
+            lastSrcElement = thisSrcElement;
+            thisSrcElement.classList.add('mark');
+            evt.stopImmediatePropagation();
+        } else {
+            lastSrcElement = null;
+        }
+
+    });
+    // window.document.body.addEventListener("mousestop", function () {
+    //     console.log('mousestop called');
+    //     var target = document.getElementById('targ-img');
+    //     target.style.visibility = 'hidden';
+    //     target.style.opacity = 0;
+    //     //document.body.classList.add('happy-c');
+    //     //document.body.classList.remove('sad-c');
+
+    // });
+</script>
+
+
+</html>
